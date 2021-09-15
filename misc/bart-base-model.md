@@ -2,7 +2,7 @@
 
 ## Model description
 
-This is a implementation of Chinese BART-Base.
+This is an implementation of Chinese BART-Base.
 
 ## Usage
 
@@ -21,7 +21,7 @@ This is a implementation of Chinese BART-Base.
 
 ```bibtex
 @article{shao2021cpt,
-  title={CPT: A Pre-Trained Unbalanced Transformerfor Both Chinese Language Understanding and Generation}, 
+  title={CPT: A Pre-Trained Unbalanced Transformer for Both Chinese Language Understanding and Generation}, 
   author={Yunfan Shao and Zhichao Geng and Yitao Liu and Junqi Dai and Fei Yang and Li Zhe and Hujun Bao and Xipeng Qiu},
   journal={arXiv preprint arXiv:2109.05729},
   year={2021}
