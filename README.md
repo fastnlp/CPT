@@ -12,7 +12,7 @@ Aiming to unify both NLU and NLG tasks, We propose a novel **C**hinese **P**re-t
 
 <p align="center">
 	<br>
- 	<img src="./misc\cpt-architecture.png" width = "500" align=center />
+ 	<img src="./misc\cpt-architecture-v1.png" width = "700" align=center />
 	<br>
 </p>
 
@@ -38,6 +38,13 @@ Chinese BART is available in **base** and **large** versions, and can be loaded 
 >>> tokenizer = BertTokenizer.from_pretrained("MODEL_NAME")
 >>> model = BartForConditionalGeneration.from_pretrained("MODEL_NAME")
 ```
+
+The checkpoints of Chinese BART can be downloaded here. 
+
+- [fnlp/bart-base-chinese](https://huggingface.co/fnlp/bart-base-chinese): 6 layers encoder, 6 layers decoder, 12 heads and 768 model dim.
+- [fnlp/bart-large-chinese](https://huggingface.co/fnlp/bart-large-chinese): 12 layers encoder, 12 layers decoder, 16 heads and 1024 model dim.
+
+
 
 ## Citation
 
