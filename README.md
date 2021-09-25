@@ -63,7 +63,7 @@ Pre-training code and examples can be find [Here](pretrain/README.md).
 
 
 ## Fine-Tuning
-Fine-tuning code and examples can be find [Here](finetune/README.md).
+Fine-tuning code and examples can be find [Here](finetune/REAMDE.md).
 
 ## Citation
 
