@@ -10,10 +10,12 @@ from prompt.utils import eq_div, set_seed
 from prompt import prompt, templates, log
 import json
 from transformers import glue_processors, WEIGHTS_NAME
-import sys
-sys.path.append('..')
 from data_processors import clue_processors
+
+import sys
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 from modeling_cpt import CPTForMaskedLM
+
 import glob
 
 import torch.multiprocessing

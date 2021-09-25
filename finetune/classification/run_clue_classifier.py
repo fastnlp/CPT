@@ -43,6 +43,9 @@ from transformers import glue_output_modes as output_modes
 from transformers import glue_processors as processors
 from transformers.models.bert.tokenization_bert import BertTokenizer
 from data_processors import clue_output_modes, clue_processors
+
+import sys
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 from modeling_cpt import CPTForSequenceClassification, CPTConfig
 
 
@@ -620,14 +623,19 @@ def get_dataset(args, task, tokenizer, part='train'):
     return dataset
 
 def get_model(args, model_name_or_path, num_labels):
-    if 'cpt' in model_name_or_path:
+    tokenizer = BertTokenizer.from_pretrained(
+        args.tokenizer_name if args.tokenizer_name else model_name_or_path,
+        do_lower_case=args.do_lower_case,
+        cache_dir=args.cache_dir if args.cache_dir else None,
+    )
+    if 'cpt' in args.model_type:
         config = CPTConfig.from_pretrained(
             model_name_or_path,
             num_labels=num_labels,
             finetuning_task=args.task_name,
             cache_dir=args.cache_dir if args.cache_dir else None)
         # config.consist_lambda = args.consist_lambda
-        config.cls_mode = args.ft_mode
+        config.cls_mode = args.cls_mode
         model = CPTForSequenceClassification.from_pretrained(
             model_name_or_path,
             from_tf=bool(".ckpt" in model_name_or_path),
@@ -639,11 +647,6 @@ def get_model(args, model_name_or_path, num_labels):
             pretrained_model_name_or_path=args.config_name if args.config_name else model_name_or_path,
             num_labels=num_labels,
             finetuning_task=args.task_name,
-            cache_dir=args.cache_dir if args.cache_dir else None,
-        )
-        tokenizer = AutoTokenizer.from_pretrained(
-            args.tokenizer_name if args.tokenizer_name else model_name_or_path,
-            do_lower_case=args.do_lower_case,
             cache_dir=args.cache_dir if args.cache_dir else None,
         )
         model = AutoModelForSequenceClassification.from_pretrained(
@@ -778,7 +781,7 @@ def main():
         type=str2bool, default=True,
         help="Evaluate all checkpoints starting with the same prefix as model_name ending and ending with step number",
     )
-    parser.add_argument("--ft_mode", default=1, type=int, help="CPT fine-tune `mode`")
+    parser.add_argument("--cls_mode", default=1, type=int, help="CPT fine-tune `mode`")
     parser.add_argument("--no_cuda", action="store_true", help="Avoid using CUDA when available")
     parser.add_argument("--no_tqdm", type=str2bool, default=False, help="Avoid using tqdm when available")
     parser.add_argument("--sample_tokenize", type=str2bool, default=False, help="using sampling when tokenize")

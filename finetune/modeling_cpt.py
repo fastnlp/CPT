@@ -50,24 +50,15 @@ from transformers import BertModel, BertConfig
 
 from torch.nn import LayerNorm
 
-# For cuda fused ops
-# from megatron.model import LayerNorm
-# from megatron.model.transformer import ParallelMLP
-# from megatron.model.fused_bias_gelu import bias_gelu_impl
-# from megatron import mpu
-# from megatron import get_args
-# from megatron.model.enums import AttnMaskType, LayerType, AttnType
-
-
 logger = logging.get_logger(__name__)
 
-_CHECKPOINT_FOR_DOC = "fudannlp/cpt-large"
+_CHECKPOINT_FOR_DOC = "fnlp/cpt-large"
 _CONFIG_FOR_DOC = "CPTConfig"
 _TOKENIZER_FOR_DOC = "CPTTokenizer"
 
 
 CPT_PRETRAINED_MODEL_ARCHIVE_LIST = [
-    "fudannlp/cpt-large",
+    "fnlp/cpt-large",
 ]
 
 
@@ -114,17 +105,6 @@ def _expand_mask(mask: torch.Tensor, dtype: torch.dtype, tgt_len: Optional[int] 
 
     return inverted_mask.masked_fill(inverted_mask.bool(), torch.finfo(dtype).min)
 
-# def _expand_mask(mask: torch.Tensor, dtype: torch.dtype, tgt_len: Optional[int] = None):
-#     """
-#     Expands attention_mask from `[bsz, seq_len]` to `[bsz, 1, tgt_seq_len, src_seq_len]`.
-#     """
-#     bsz, src_len = mask.size()
-#     tgt_len = tgt_len if tgt_len is not None else src_len
-
-#     expanded_mask = mask[:, None, None, :].expand(bsz, 1, tgt_len, src_len).to(dtype)
-
-#     inverted_mask = (expanded_mask < 0.5)
-#     return inverted_mask
 def attention_mask_func(attention_scores, attention_mask):
     return attention_scores + attention_mask
 

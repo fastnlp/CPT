@@ -19,7 +19,7 @@ from glob import glob
 import fitlog
 
 import sys
-sys.path.append('..')
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 from modeling_cpt import CPTForQuestionAnswering, CPTConfig
 
 @torch.no_grad()
@@ -142,7 +142,7 @@ if __name__ == '__main__':
     parser.add_argument('--model_type', type=str, default='bert')
     parser.add_argument('--train_epochs', type=int, default=2)
     parser.add_argument('--n_batch', type=int, default=32)
-    parser.add_argument('--ft_mode', type=int, default=1)
+    parser.add_argument('--cls_mode', type=int, default=1)
     parser.add_argument('--lr', type=float, default=3e-5)
     parser.add_argument('--dropout', type=float, default=0.1)
     parser.add_argument('--max_grad_norm', type=float, default=1.0)
@@ -221,7 +221,7 @@ if __name__ == '__main__':
         bert_config.attention_probs_dropout_prob = args.dropout
         if 'arch' in args.init_restore_dir:
             config = CPTConfig.from_pretrained(args.init_restore_dir)
-            config.cls_mode = args.ft_mode
+            config.cls_mode = args.cls_mode
             config.attention_dropout = args.dropout
             config.activation_dropout = args.dropout
             config.dropout = args.dropout

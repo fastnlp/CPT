@@ -22,29 +22,48 @@ The architecture of CPT is a variant of the full Transformer and consists of thr
 2. **Understanding Decoder** (U-Dec): a shallow Transformer encoder with fully-connected self-attention, which is designed for NLU tasks. The input of U-Dec is the output of S-Enc.
 3. **Generation Decoder** (G-Dec): a Transformer decoder with masked self-attention, which is designed for generation tasks with auto-regressive fashion. G-Dec utilizes the output of S-Enc with cross-attention.
 
-## Downloads & Usage
+## Pre-Trained Models
+We provide the pre-trained weights of CPT and Chinese BART with source code, which can be directly used in Huggingface-Transformers.
 
-Coming soon.
+- **`Chinese BART-base`**: 6 layers Encoder, 6 layers Decoder, 12 Heads and 768 Model dim.
+- **`Chinese BART-large`**: 12 layers Encoder, 12 layers Decoder, 16 Heads and 1024 Model dim.
+- **`CPT-base`**: 10 layers S-Enc, 2 layers U-Dec/G-Dec, 12 Heads and 768 Model dim.
+- **`CPT-large`**: 20 layers S-Enc, 4 layers U-Dec/G-Dec, 16 Heads and 1024 Model dim.
 
-## Chinese BART
+The pre-trained weights can be downloaded here.
+| Model | `MODEL_NAME`|
+| --- | --- |
+| **`Chinese BART-base`**  | [fnlp/bart-base-chinese](https://huggingface.co/fnlp/bart-base-chinese) | 
+| **`Chinese BART-large`**   | [fnlp/bart-large-chinese](https://huggingface.co/fnlp/bart-large-chinese) |
+| **`CPT-base`**   | [fnlp/cpt-base](https://huggingface.co/fnlp/cpt-base) | 
+| **`CPT-large`**   | [fnlp/cpt-large](https://huggingface.co/fnlp/cpt-large) |
 
-We also provide a pre-trained Chinese BART as a byproduct. The BART models is pre-trained with the same corpora, tokenization and hyper-parameters of CPT.
 
-#### Load with Huggingface-Transformers
+To use CPT, please import the file `finetune/modeling_cpt.py` that define the architecture of CPT into your project.
+Then, use the PTMs as the following example, where `MODEL_NAME` is the corresponding  string that refers to the model.
 
-Chinese BART is available in **base** and **large** versions, and can be loaded with Huggingface-Transformers. The example code is as follows, where `MODEL_NAME` is `fnlp/bart-base-chinese` or `fnlp/bart-large-chinese` for **base** or **large** size of BART, respectively.
-
+For CPT:
 ```python
->>> tokenizer = BertTokenizer.from_pretrained("MODEL_NAME")
->>> model = BartForConditionalGeneration.from_pretrained("MODEL_NAME")
+from modeling_cpt import BertTokenizer, CPTForConditionalGeneration
+tokenizer = BertTokenizer.from_pretrained("MODEL_NAME")
+model = CPTForConditionalGeneration.from_pretrained("MODEL_NAME")
+print(model)
 ```
 
-The checkpoints of Chinese BART can be downloaded here. 
+For Chinese BART:
+```python
+from transformers import BertTokenizer, BartForConditionalGeneration
+tokenizer = BertTokenizer.from_pretrained("MODEL_NAME")
+model = BartForConditionalGeneration.from_pretrained("MODEL_NAME")
+print(model)
+```
 
-- [fnlp/bart-base-chinese](https://huggingface.co/fnlp/bart-base-chinese): 6 layers encoder, 6 layers decoder, 12 heads and 768 model dim.
-- [fnlp/bart-large-chinese](https://huggingface.co/fnlp/bart-large-chinese): 12 layers encoder, 12 layers decoder, 16 heads and 1024 model dim.
+## Pre-Training
+Pre-training code and examples can be find [Here](pretrain/README.md).
 
 
+## Fine-Tuning
+Fine-tuning code and examples can be find [Here](finetune/README.md).
 
 ## Citation
 

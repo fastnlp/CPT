@@ -16,16 +16,19 @@ from transformers import (AutoConfig, AutoModel, BertTokenizer,BertForTokenClass
 from transformers.trainer_utils import is_main_process
 from datasets import load_metric,Dataset
 from utils import DataTrainingArguments, ModelArguments, load_json
+
+import sys
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 from modeling_cpt import CPTModel, CPTForConditionalGeneration
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--bert_name",default='/path/to/cpt/',type=str)
+parser.add_argument("--bert_name",default='/path/to/model',type=str)
 parser.add_argument("--dataset", default="lcsts",type=str)
 parser.add_argument("--lr",default=2e-5,type=float)
 parser.add_argument("--batch_size",default='50',type=str)
 parser.add_argument("--epoch",default='5',type=str)
-parser.add_argument("--data_dir",default="/path/to/dataset/",type='str')
+parser.add_argument("--data_dir",default="/path/to/dataset/",type=str)
 args = parser.parse_args()
 arg_dict=args.__dict__
 

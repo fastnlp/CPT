@@ -16,15 +16,18 @@ from transformers.trainer_utils import is_main_process
 
 from model import CWSModel
 from utils import DataTrainingArguments, ModelArguments, load_json
+
+import sys
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 from modeling_cpt import CPTModel
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--bert_name",default='/remote-home/share/yfshao/bart-zh/arch24-4-new-iter10w',type=str)
+parser.add_argument("--bert_name",default='/path/to/model/',type=str)
 parser.add_argument("--dataset", default="msr",type=str)
 parser.add_argument("--lr",default=2e-5,type=float)
 parser.add_argument("--batch_size",default='16',type=str)
 parser.add_argument("--epoch",default='10',type=str)
-parser.add_argument("--data_dir",default="../../data",type='str')
+parser.add_argument("--data_dir",default="/path/to/dataset/",type='str')
 args = parser.parse_args()
 arg_dict=args.__dict__
 
