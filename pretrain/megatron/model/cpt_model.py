@@ -14,12 +14,10 @@ from megatron.model.utils import get_linear_layer
 from megatron.model.utils import init_method_normal
 from megatron.model.utils import scaled_init_method_normal
 from .module import MegatronModule
-# from transformers import BartForConditionalGeneration as HFBartModel
-# from megatron.model.modeling_bart import BartForConditionalGeneration as HFBartModel
-from megatron.model.modeling_cpt import BartForConditionalGeneration as HFBartModel
+from megatron.model.modeling_cpt import CPTForConditionalGeneration as HFBartModel
 from transformers import BertConfig, BartConfig
 
-class BartModel(MegatronModule):
+class CPTModel(MegatronModule):
     def __init__(self):
         super().__init__()
         args = get_args()
@@ -27,11 +25,8 @@ class BartModel(MegatronModule):
         self.fp16_lm_cross_entropy = args.fp16_lm_cross_entropy
 
         # config = BartConfig.from_pretrained(args.vocab_file)  # vocab file path also contains config.json
-        if args.num_layers > 12:
-            model_path = 'roberta-zh/large'
-        else:
-            model_path = 'roberta-zh/base'
-        config = BartConfig.from_pretrained('vocab/bart_zh_vocab')
+        model_path = 'roberta_zh'
+        config = BartConfig.from_pretrained(args.vocab_file)  # vocab file path also contains config.json
         # encoder_config = BertConfig.from_pretrained(model_path)
         tokenizer = get_tokenizer()
         config.vocab_size = tokenizer.vocab_size

@@ -20,7 +20,7 @@ from abc import abstractmethod
 
 from .bert_tokenization import FullTokenizer as FullBertTokenizer
 from .gpt2_tokenization import GPT2Tokenizer
-from transformers import AutoTokenizer
+from transformers import BertTokenizer
 
 def build_tokenizer(args):
     """Initialize tokenizer."""
@@ -42,7 +42,7 @@ def build_tokenizer(args):
         assert args.merge_file is not None
         tokenizer = _GPT2BPETokenizer(args.vocab_file, args.merge_file)
     elif args.tokenizer_type == 'Huggingface':
-        tokenizer = _HfAutoTokenizer(args.vocab_file)
+        tokenizer = _HfBertTokenizer(args.vocab_file)
     else:
         raise NotImplementedError('{} tokenizer is not '
                                   'implemented.'.format(args.tokenizer_type))
@@ -128,9 +128,9 @@ class AbstractTokenizer(ABC):
                                   'tokenizer'.format(self.name))
 
 
-class _HfAutoTokenizer(AbstractTokenizer):
+class _HfBertTokenizer(AbstractTokenizer):
     def __init__(self, from_pretrained_path):
-        self.tokenizer = AutoTokenizer.from_pretrained(from_pretrained_path)
+        self.tokenizer = BertTokenizer.from_pretrained(from_pretrained_path)
         self.tokenizer_type = self.tokenizer.__class__.__name__
         self._inv_vocab = {i:t for t,i in self.tokenizer.get_vocab().items()}
         super().__init__('Huggingface Tokenizer {}'.format(self.tokenizer_type))

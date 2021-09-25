@@ -10,7 +10,7 @@ WORLD_SIZE=$(($GPUS_PER_NODE*$NNODES))
 
 DATA_PATH="dataset/"
 CHECKPOINT_PATH=checkpoints/bart-base
-VOCAB_FILE=vocab/bert_zh_vocab/
+VOCAB_FILE=vocab/
 
 DISTRIBUTED_ARGS="--nproc_per_node $GPUS_PER_NODE --nnodes $NNODES --node_rank $NODE_RANK --master_addr $MASTER_ADDR --master_port $MASTER_PORT"
 
@@ -39,11 +39,11 @@ python -m torch.distributed.launch $DISTRIBUTED_ARGS \
        --initial-loss-scale 65536 \
        --weight-decay 1e-2 \
        --clip-grad 1.0 \
-       --lr-warmup-fraction .032 \
+       --lr-warmup-fraction .01 \
        --log-interval 1 \
        --save-interval 1600 \
        --eval-interval 500 \
-       --eval-iters 1 \
+       --eval-iters 10 \
        --fp16 \
        --optimizer adam \
        --num-workers 2 \

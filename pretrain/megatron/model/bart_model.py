@@ -25,8 +25,7 @@ class BartModel(MegatronModule):
 
         self.fp16_lm_cross_entropy = args.fp16_lm_cross_entropy
 
-        # config = BartConfig.from_pretrained(args.vocab_file)  # vocab file path also contains config.json
-        config = BartConfig.from_pretrained('vocab/bart_zh_vocab')
+        config = BartConfig.from_pretrained(args.vocab_file)  # vocab file path also contains config.json
         # encoder_config = BertConfig.from_pretrained(model_path)
         tokenizer = get_tokenizer()
         config.vocab_size = tokenizer.vocab_size

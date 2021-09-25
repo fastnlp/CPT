@@ -27,7 +27,7 @@ from megatron import (
     get_tokenizer
 )
 from megatron.data.dataset_utils import build_train_valid_test_datasets
-from megatron.model.cpt_model import BartModel
+from megatron.model.cpt_model import CPTModel
 from megatron.training import pretrain
 from megatron.utils import average_losses_across_data_parallel_group
 
@@ -37,15 +37,16 @@ def model_provider(pre_process=True, post_process=True):
     assert pre_process and post_process, "BART doesn't yet support pipelining"
 
     print_rank_0('building BART model ...')
-    model = BartModel()
+    model = CPTModel()
     print_rank_0(model)
     return model
 
 
+SHOW_DATA = False
 def get_batch(data_iterator):
     """Build the batch."""
 
-    keys = ['source', 'target', 'prev_output_tokens', 'pos1', 'pos2', 'attn_mask', 'loss_mask']
+    keys = ['source', 'target', 'prev_output_tokens', 'attn_mask', 'loss_mask', 'use_decoder']
     datatype = torch.int64
 
     # Broadcast data.
@@ -59,17 +60,19 @@ def get_batch(data_iterator):
     source = data_b['source'].long()
     target = data_b['target'].long()
     prev_output_tokens = data_b['prev_output_tokens'].long()
-    pos1 = data_b['pos1'].long()
-    pos2 = data_b['pos2'].long()
     attn_mask = data_b['attn_mask'].long()
     loss_mask = data_b['loss_mask'].float()
-    # print('source', source[0])
-    # print('target', target[0])
-    # tokenizer = get_tokenizer()
-    # print('source', tokenizer.detokenize(source[0]))
-    # print('target', tokenizer.detokenize(target[0]))
-    # import pdb; pdb.set_trace()
-    return source, target, prev_output_tokens, pos1, pos2, attn_mask, loss_mask
+    use_decoder = data_b['use_decoder'].long()
+
+    global SHOW_DATA
+    if not SHOW_DATA:
+        SHOW_DATA = True
+        print_rank_0('source: {}'.format(source[0]))
+        print_rank_0('target: {}'.format(target[0]))
+        tokenizer = get_tokenizer()
+        print_rank_0('source: {}'.format(tokenizer.detokenize(source[0])))
+        print_rank_0('target: {}'.format(tokenizer.detokenize(target[0])))
+    return source, target, prev_output_tokens, attn_mask, loss_mask, use_decoder
 
 
 def loss_func(loss_mask, output_tensor):
@@ -94,11 +97,11 @@ def forward_step(data_iterator, model):
 
     # Get the batch.
     timers('batch-generator').start()
-    source, target, prev_output_tokens, pos1, pos2, attn_mask, loss_mask = get_batch(data_iterator)
+    source, target, prev_output_tokens, attn_mask, loss_mask, use_decoder = get_batch(data_iterator)
     timers('batch-generator').stop()
 
     # Forward model lm_labels
-    output_tensor = model(source, attn_mask, prev_output_tokens, pos1, pos2, target)
+    output_tensor = model(source, attn_mask, prev_output_tokens, target, use_decoder)
 
     return output_tensor, partial(loss_func, loss_mask)
 
