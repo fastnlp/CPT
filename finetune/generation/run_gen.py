@@ -23,7 +23,7 @@ from modeling_cpt import CPTModel, CPTForConditionalGeneration
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--bert_name",default='/path/to/model',type=str)
+parser.add_argument("--model_path",default='/path/to/model',type=str)
 parser.add_argument("--dataset", default="lcsts",type=str)
 parser.add_argument("--lr",default=2e-5,type=float)
 parser.add_argument("--batch_size",default='50',type=str)
@@ -35,7 +35,7 @@ arg_dict=args.__dict__
 logger = logging.getLogger(__name__)
 
 dataset_name=arg_dict['dataset']
-outdir_1=arg_dict['bert_name'].split('/')[-1]
+outdir_1='output'
 if not os.path.exists(outdir_1):
     os.mkdir(outdir_1)
 
@@ -49,7 +49,7 @@ length_map={'lcsts':'30','csl':'50','adgen':'128'}
 
 
 args=[
-    '--model_name_or_path',arg_dict['bert_name'],
+    '--model_name_or_path',arg_dict['model_path'],
     '--do_train','--do_eval','--do_predict',
     '--train_file',os.path.join(arg_dict['data_dir'],'SUMMARY.'+dataset_name,'train.json'),
     '--validation_file',os.path.join(arg_dict['data_dir'],'SUMMARY.'+dataset_name,'dev.json'),

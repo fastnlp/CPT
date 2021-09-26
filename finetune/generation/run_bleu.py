@@ -4,11 +4,11 @@ from transformers import BertTokenizer
 from bleu_metric import Metric
 
 #需要计算bleu的文本文件所在的目录
-arch='/path/to/generation_result/'
-
+arch='output'
+tokenizer=BertTokenizer.from_pretrained('/path/to/model')
 dataset='adgen'
-tokenizer=BertTokenizer.from_pretrained('/path/to/model/')
-test_set=load_json('test.json')
+test_set=load_json('demo_data/SUMMARY.adgen/test.json')
+
 labels=[]
 for data in test_set:
     ids=tokenizer.encode(data['summarization'])
