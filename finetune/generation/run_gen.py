@@ -273,7 +273,7 @@ if trainer.is_world_process_zero():
     if training_args.predict_with_generate:
         predictions, labels, metrics = trainer.predict(test_dataset, metric_key_prefix="predict")
         test_preds = tokenizer.batch_decode(
-            predictions, skip_special_tokens=True, clean_up_tokenization_spaces=False
+            predictions, skip_special_tokens=True,
         )
         test_preds = [pred.strip() for pred in test_preds]
         output_test_preds_file = os.path.join(training_args.output_dir, "test_generations.txt")
