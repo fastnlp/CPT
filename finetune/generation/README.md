@@ -44,7 +44,19 @@ We first use the BertTokenizer to process the predictions and labels into charac
 人 大 代 表 ： 养 老 险 每 多 缴 1 年 养 老 金 应 多 发 5 %
 ```
 
-After that we use [ROUGE](https://github.com/pltrdy/rouge) or [BLEU-4](https://github.com/TsinghuaAI/CPM-2-Finetune/blob/b37b07da4bf834c7a3b7e8188662df91eddb9b0a/generation_metrics.py#L89) to evaluate the generation results. The training script use ROUGE to evaluate the model after each epoch. To evaluate the generation results output by run_gen.py using BLEU-4, you can change the variables in run_bleu.py and run it:
+After that we use [ROUGE](https://github.com/pltrdy/rouge) to evaluate the generation results. The training script use ROUGE to evaluate the model after each epoch. 
+
+To evaluate the generation results output by run_gen.py using [BLEU-4](https://github.com/TsinghuaAI/CPM-2-Finetune/blob/b37b07da4bf834c7a3b7e8188662df91eddb9b0a/generation_metrics.py#L89), you can change the variables in run_bleu.py and run it:
 ```
 python run_bleu.py
+```
+The generated text will be processed into lists like follows:
+
+labels
+```
+[[['这', '款', '阔', '腿', '裤', '，', '整', '体', '设', '计', '简', '约', '利', '落', '，', '时', '尚', '的', '阔', '腿', '款', '式', '带', '来', '鲜', '明', '的', '几', '何', '设', '计', '美', '感', '，', '褪', '去', '传', '统', '装', '束', '的', '厚', '重', '与', '臃', '肿', '，', '更', '具', '轻', '盈', '美', '感', '。', '搭', '配', '七', '分', '裤', '长', '修', '饰', '出', '挺', '拔', '的', '腿', '部', '线', '条', '，', '气', '质', '的', '格', '纹', '图', '案', '不', '显', '单', '调', '，', '尽', '显', '女', '性', '优', '雅', '气', '质', '。', '斜', '门', '襟', '设', '计', '潮', '流', '出', '众', '，', '让', '你', '时', '刻', '保', '持', '动', '人', '的', '女', '性', '风', '采', '。']], [['这', '款', '充', '满', '甜', '美', '气', '息', '的', '针', '织', '衫', '，', '看', '似', '简', '单', '，', '但', '却', '充', '满', '了', '设', '计', '感', '。', '粗', '针', '的', '织', '法', '结', '合', '花', '纱', '，', '复', '古', '又', '不', '失', '时', '髦', '的', '感', '觉', '。', '饱', '满', '的', '颜', '色', '，', '散', '发', '着', '浓', '郁', '的', '浪', '漫', '气', '息', '，', '特', '别', '适', '合', '这', '个', '冬', '天', '过', '渡', '春', '天', '的', '季', '节', '，', '完', '全', '可', '以', '应', '付', '各', '种', '风', '格', '不', '同', '的', '日', '常', '穿', '搭', '。', '宽', '松', '的', '版', '型', '也', '让', '上', '身', '变', '得', '更', '加', '完', '美', '，', '修', '饰', '出', '好', '身', '材', '。']]]
+```
+preds
+```
+[['这', '款', '阔', '腿', '裤', '采', '用', '了', '七', '分', '裤', '的', '版', '型', '设', '计', '，', '能', '够', '很', '好', '的', '修', '饰', '腿', '部', '线', '条', '，', '让', '双', '腿', '看', '起', '来', '更', '加', '的', '笔', '直', '修', '长', '。', '格', '纹', '的', '图', '案', '设', '计', '简', '约', '大', '气', '，', '几', '何', '图', '案', '的', '设', '计', '时', '尚', '潮', '流', '。'], ['这', '款', '针', '织', '衫', '采', '用', '宽', '松', '的', '版', '型', '设', '计', '，', '搭', '配', '精', '致', '的', '剪', '裁', '，', '给', '身', '体', '更', '多', '的', '活', '动', '量', '，', '行', '动', '更', '为', '方', '便', '，', '穿', '着', '更', '为', '舒', '适', '。', '加', '上', '复', '古', '的', '提', '花', '图', '案', '点', '缀', '，', '更', '为', '整', '体', '增', '添', '了', '一', '丝', '甜', '美', '气', '息', '。']]
 ```
