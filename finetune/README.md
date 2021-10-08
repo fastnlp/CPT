@@ -4,7 +4,7 @@ This repo contains the fine-tuning code for CPT on multiple NLU and NLG tasks, s
 
 ## Requirement
 - pytorch==1.8.1
-- transformers==4.2.0
+- transformers==4.4.1
 
 ## Run
 The code and running examples are listed in the corresponding folders of the fine-tuning tasks.
