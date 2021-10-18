@@ -38,6 +38,9 @@ The pre-trained weights can be downloaded here.
 | **`CPT-base`**   | [fnlp/cpt-base](https://huggingface.co/fnlp/cpt-base) | 
 | **`CPT-large`**   | [fnlp/cpt-large](https://huggingface.co/fnlp/cpt-large) |
 
+### Reuqirements:
+- pytorch==1.8.1
+- transformers==4.4.1
 
 To use CPT, please import the file `finetune/modeling_cpt.py` that define the architecture of CPT into your project.
 Then, use the PTMs as the following example, where `MODEL_NAME` is the corresponding  string that refers to the model.
