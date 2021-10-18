@@ -38,7 +38,7 @@ The pre-trained weights can be downloaded here.
 | **`CPT-base`**   | [fnlp/cpt-base](https://huggingface.co/fnlp/cpt-base) | 
 | **`CPT-large`**   | [fnlp/cpt-large](https://huggingface.co/fnlp/cpt-large) |
 
-### Reuqirements:
+### Requirements:
 - pytorch==1.8.1
 - transformers==4.4.1
 
