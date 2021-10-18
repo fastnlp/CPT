@@ -2,7 +2,7 @@
 
 This repo contains the fine-tuning code for CPT on multiple NLU and NLG tasks, such as text classification, machine reading comprehension (MRC), sequence labeling and text generation, etc.
 
-## Requirement
+## Requirements
 - pytorch==1.8.1
 - transformers==4.4.1
 
