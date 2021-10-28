@@ -42,7 +42,7 @@ The pre-trained weights can be downloaded here.
 - pytorch==1.8.1
 - transformers==4.4.1
 
-To use CPT, please import the file `finetune/modeling_cpt.py` that define the architecture of CPT into your project.
+To use CPT, please import the file `modeling_cpt.py` (Download [Here](finetune/modeling_cpt.py)) that define the architecture of CPT into your project.
 Then, use the PTMs as the following example, where `MODEL_NAME` is the corresponding  string that refers to the model.
 
 For CPT:
@@ -61,12 +61,25 @@ model = BartForConditionalGeneration.from_pretrained("MODEL_NAME")
 print(model)
 ```
 
+After initializing the model, you can use the following lines to generate text.
+```python
+>>> inputs = tokenizer.encode("北京是[MASK]的首都", return_tensors='pt')
+>>> pred_ids = model.generate(input_ids, num_beams=4, max_length=20)
+>>> print(tokenizer.convert_ids_to_tokens(pred_ids[i]))
+    ['[SEP]', '[CLS]', '北', '京', '是', '中', '国', '的', '首', '都', '[SEP]']
+```
+
 ## Pre-Training
 Pre-training code and examples can be find [Here](pretrain/README.md).
 
 
 ## Fine-Tuning
 Fine-tuning code and examples can be find [Here](finetune/README.md).
+
+
+## Contact
+
+If you have any problems, raise an issue or contact <yfshao@fudan.edu.cn>.
 
 ## Citation
 

@@ -2,11 +2,13 @@
 
 ## Model description
 
-This is an implementation of CPT-Large.
+This is an implementation of CPT-Large. To use CPT, please import the file `modeling_cpt.py` (Download [Here](finetune/modeling_cpt.py)) that define the architecture of CPT into your project.
 
 [**CPT: A Pre-Trained Unbalanced Transformer for Both Chinese Language Understanding and Generation**](https://arxiv.org/pdf/2109.05729.pdf)
 
 Yunfan Shao, Zhichao Geng, Yitao Liu, Junqi Dai, Fei Yang, Li Zhe, Hujun Bao, Xipeng Qiu
+
+**Github Link:** https://github.com/fastnlp/CPT
 
 ## Usage
 
