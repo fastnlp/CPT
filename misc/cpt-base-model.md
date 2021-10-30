@@ -1,8 +1,8 @@
-# Chinese BART-Base
+# Chinese CPT-Base
 
 ## Model description
 
-This is an implementation of CPT-Base. To use CPT, please import the file `modeling_cpt.py` (Download [Here](finetune/modeling_cpt.py)) that define the architecture of CPT into your project.
+This is an implementation of CPT-Base. To use CPT, please import the file `modeling_cpt.py` (**Download** [Here](https://github.com/fastnlp/CPT/blob/master/finetune/modeling_cpt.py)) that define the architecture of CPT into your project.
 
 [**CPT: A Pre-Trained Unbalanced Transformer for Both Chinese Language Understanding and Generation**](https://arxiv.org/pdf/2109.05729.pdf)
 
