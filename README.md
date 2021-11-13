@@ -47,7 +47,8 @@ Then, use the PTMs as the following example, where `MODEL_NAME` is the correspon
 
 For CPT:
 ```python
-from modeling_cpt import BertTokenizer, CPTForConditionalGeneration
+from modeling_cpt import CPTForConditionalGeneration
+from transformers import BertTokenizer
 tokenizer = BertTokenizer.from_pretrained("MODEL_NAME")
 model = CPTForConditionalGeneration.from_pretrained("MODEL_NAME")
 print(model)
