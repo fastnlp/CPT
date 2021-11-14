@@ -9,7 +9,7 @@ To train and evaluate **CPT$_u$**, **CPT$_g$** and **CPT$_{ug}$**, run the pytho
 ```bash
 export MODEL_TYPE=cpt-base
 export MODEL_NAME=fnlp/cpt-base
-export CLUE_DATA_DIR=/path/to/mrc_data_dir
+export CLUE_DATA_DIR=~/workdir/datasets/CLUEdatasets/
 export TASK_NAME=drcd
 export CLS_MODE=1
 python run_mrc.py \
@@ -22,7 +22,7 @@ python run_mrc.py \
   --gradient_accumulation_steps 4 \
   --lr=3e-5 \
   --dropout=0.2 \
-  --CLS_MODE=$CLS_MODE \
+  --cls_mode=$CLS_MODE \
   --warmup_rate=0.1 \
   --weight_decay_rate=0.01 \
   --max_seq_length=512 \

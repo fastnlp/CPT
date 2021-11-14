@@ -210,7 +210,7 @@ if __name__ == '__main__':
         torch.distributed.barrier()
 
     # load the bert setting
-    if 'bert' == args.model_type:
+    if 'bert' in args.model_type or 'cpt' in args.model_type:
         if 'large' in args.init_restore_dir or '24' in args.init_restore_dir:
             config_path = 'hfl/chinese-roberta-wwm-ext-large'
         else:
@@ -219,7 +219,7 @@ if __name__ == '__main__':
         tokenizer = BertTokenizer.from_pretrained(config_path)
         bert_config.hidden_dropout_prob = args.dropout
         bert_config.attention_probs_dropout_prob = args.dropout
-        if 'arch' in args.init_restore_dir:
+        if 'cpt' in args.init_restore_dir:
             config = CPTConfig.from_pretrained(args.init_restore_dir)
             config.cls_mode = args.cls_mode
             config.attention_dropout = args.dropout

@@ -47,7 +47,8 @@ Then, use the PTMs as the following example, where `MODEL_NAME` is the correspon
 
 For CPT:
 ```python
-from modeling_cpt import BertTokenizer, CPTForConditionalGeneration
+from modeling_cpt import CPTForConditionalGeneration
+from transformers import BertTokenizer
 tokenizer = BertTokenizer.from_pretrained("MODEL_NAME")
 model = CPTForConditionalGeneration.from_pretrained("MODEL_NAME")
 print(model)
@@ -63,9 +64,9 @@ print(model)
 
 After initializing the model, you can use the following lines to generate text.
 ```python
->>> inputs = tokenizer.encode("北京是[MASK]的首都", return_tensors='pt')
+>>> input_ids = tokenizer.encode("北京是[MASK]的首都", return_tensors='pt')
 >>> pred_ids = model.generate(input_ids, num_beams=4, max_length=20)
->>> print(tokenizer.convert_ids_to_tokens(pred_ids[i]))
+>>> print(tokenizer.convert_ids_to_tokens(pred_ids[0]))
     ['[SEP]', '[CLS]', '北', '京', '是', '中', '国', '的', '首', '都', '[SEP]']
 ```
 
