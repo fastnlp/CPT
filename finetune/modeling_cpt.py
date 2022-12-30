@@ -828,6 +828,7 @@ class CPTModel(CPTPretrainedModel):
             intermediate_size=config.encoder_ffn_dim,
             hidden_dropout_prob=config.activation_dropout,
             attention_probs_dropout_prob=config.attention_dropout,
+            max_position_embeddings=config.max_position_embeddings,
         )
         config.vocab_size = encoder_config.vocab_size
         self.encoder = BertModel(encoder_config, add_pooling_layer=False)
