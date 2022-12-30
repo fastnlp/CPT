@@ -6,6 +6,36 @@ This repository contains code and checkpoints for **CPT**.
 
 Yunfan Shao, Zhichao Geng, Yitao Liu, Junqi Dai, Fei Yang, Li Zhe, Hujun Bao, Xipeng Qiu
 
+### News
+
+**12/30/2022**
+
+An updated version of CPT & Chinese BART are released. In the new version, we changed the following parts:
+
+- **Vocabulary** We replace the old BERT vocabulary with a larger one of size 51271 built from the training data, in which we 1) add missing 6800+ Chinese characters (most of them are traditional Chinese characters); 2) remove redundant tokens (e.g.  Chinese character tokens with ## prefix); 3) add some English tokens to reduce OOV.
+- **Position Embeddings** We extend the max_position_embeddings from 512 to 1024.
+
+We initialize the new version of models with the old version of checkpoints with vocabulary alignment. Token embeddings found in the old checkpoints are copied. And other newly added parameters are randomly initialized. We further train the new CPT & Chinese BART 50K steps with batch size 2048, max-seq-length 1024, peak learning rate 2e-5, and warmup ratio 0.1.
+
+The result compared to the previous checkpoints is as followings:
+
+|            | AFQMC | IFLYTEK | CSL-sum | LCSTS |  AVG  |
+| :--------- | :---: | :-----: | :-----: | :---: | :---: |
+| Previous   |      |        |        |      |      |
+| bart-base  | 73.0 |   60   |  62.1  | 37.8 | 58.23 |
+| cpt-base   | 75.1 |  60.5  |  63.0  | 38.2 | 59.20 |
+| bart-large | 75.7 |  62.1  |  64.2  | 40.6 | 60.65 |
+| cpt-large  | 75.9 |  61.8  |  63.7  | 42.0 | 60.85 |
+| Updataed   |      |        |        |      |      |
+| bart-base  | 73.03 |  61.25  |  61.51  | 38.78 | 58.64 |
+| cpt-base   | 74.40 |  61.23  |  62.09  | 38.81 | 59.13 |
+| bart-large | 75.81 |  61.52  |  64.62  | 40.90 | 60.71 |
+| cpt-large  | 75.97 |  61.63  |  63.83  | 42.08 | 60.88 |
+
+The result shows that the updated models maintain comparative performance compared with previous checkpoints. There are still some cases that the updated model is slightly worse than the previous one, which results from the following reasons: 1) Training additional a few steps did not lead to significant performance improvement; 2) some downstream tasks are not affected by the newly added tokens and longer encoding sequences, but sensitive to the fine-tuning hyperparameters.
+
+- Note that to use updated models, please update the  `modeling_cpt.py` (new version download [Here](https://github.com/fastnlp/CPT/blob/master/finetune/modeling_cpt.py)) and the vocabulary (refresh the cache).
+
 ## Introduction
 
 Aiming to unify both NLU and NLG tasks, We propose a novel **C**hinese **P**re-trained Un-balanced **T**ransformer (**CPT**), which is an unbalanced Transformer encoder-decoder pre-trained with MLM and DAE jointly.
